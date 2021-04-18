@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="mappers.PeekabooMapper"></mapper> -->
+<mapper namespace="com.peekaboo.mapper.PeekabooMapper">
+
+	<sql id="peekabooColumns">
+		idx,
+		title,
+		content,
+		id,
+		view_cnt,
+		notice_yn,
+		secret_yn,
+		delete_yn,
+		insert_time,
+		update_time,
+		delete_time
+	</sql>
+	
+	<insert id="insertContent" parameterType="PeekabooDTO">
+		INSERT INTO peekaboo (
+			<include refid="peekabooColumns" />
+		) VALUES (
+					#{idx},
+					#{title},
+					#{content},
+					#{id},
+					0,
+					IFNULL(#{noticeYn}, 'N'),
+					IFNULL(#{secretYn}, 'N'),
+					'N',
+					NOW(),
+					NULL,
+					NULL
+				)
+	</insert>
+	
+	<select id="selectDetail" parameterType="long" resultType="PeekabooDTO">
+		SELECT
+			<include refid="peekabooColumns" />
+		FROM
+			peekaboo
+		WHERE
+			delete_yn = 'N'
+		AND
+			idx = #{idx}
+	</select>
+	
+	<update id="updateContent" parameterType="PeekabooDTO">
+		UPDATE peekaboo
+		SET
+			update_time = NOW(),
+			title = #{title},
+			content = #{content},
+			id = #{id},
+			notice_yn = IFNULL(#{noticeYn}, 'N'),
+			secret_yn = IFNULL(#{secretYn}, 'N')
+		WHERE
+			idx = #{idx}	
+	</update>
+	
+	<update id="deleteContent" parameterType="long">
+		UPDATE peekaboo
+		SET
+			delete_yn = 'Y',
+			delete_time = NOW()
+		WHERE
+			idx = #{idx}
+	</update>
+	
+	<select id="selectContentList" parameterType="PeekabooDTO" resultType="peekabooDTO">
+		SELECT
+			<include refid="peekabooColumns" />
+		FROM
+			peekaboo
+		WHERE
+			delete_yn = 'N'
+		ORDER BY
+			notice_yn ASC,
+			idx DESC,
+			insert_time DESC
+	</select>
+
+	<select id="selectTotalCount" parameterType="PeekabooDTO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			peekaboo
+		WHERE
+			delete_yn = 'N'
+	</select>
+</mapper>
