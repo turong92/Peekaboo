@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySources;
 @Configuration
 @PropertySources({
 	@PropertySource( value = "file:c:/dev/config.properties", ignoreResourceNotFound = true ),
-    @PropertySource( value = "file:/home/env/config.properties", ignoreResourceNotFound = true)
+    @PropertySource( value = "file:${user.home}/env/config.properties", ignoreResourceNotFound = true)
 })
 public class GlobalPropertySource {
 
