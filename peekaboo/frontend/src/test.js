@@ -8,6 +8,7 @@ class test extends Component {
     render() {
         return(
             <div>test</div>
+            <div>test2</div>
         );
     }
 }
