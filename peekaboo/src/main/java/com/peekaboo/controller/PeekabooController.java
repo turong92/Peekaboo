@@ -37,6 +37,7 @@ public class PeekabooController {
 		for(String key : allParams.keySet()) {
 			result += key + " : " + allParams.get(key) + " ";
 		}
+		
 		return result;
 	}
 	
@@ -89,8 +90,8 @@ public class PeekabooController {
 }
 
 /*
-기존의 URI 매핑) @RequestMapping(value = "...", method = RequestMethod.XXX)
+湲곗〈�쓽 URI 留ㅽ븨) @RequestMapping(value = "...", method = RequestMethod.XXX)
 
-Spring 4.3 이후 새로운 URI 매핑) @xxxMapping(value = "...")
+Spring 4.3 �씠�썑 �깉濡쒖슫 URI 留ㅽ븨) @xxxMapping(value = "...")
 GetMapping, PostMapping
 */
