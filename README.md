@@ -14,3 +14,6 @@ STS 4.10.0 for windows
 
 SERVER : 
 Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (AWS EC2)
+
+SECURITY :
+OAuth2 with Google
