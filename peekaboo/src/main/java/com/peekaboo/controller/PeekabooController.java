@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.peekaboo.domain.PeekabooDTO;
 import com.peekaboo.service.PeekabooService;
@@ -21,14 +23,15 @@ public class PeekabooController {
 	@Autowired
 	private PeekabooService peekabooService;
 	
-	@GetMapping(value = "/")
-	public String index() {
-		return "hello world!";
+	@GetMapping(value = "test")
+	public @ResponseBody String test1() {
+		return "hello! server time is " + new Date() + "\n";
 	}
 	
-	@GetMapping(value = "test")
-	public String test1() {
-		return "hello! server time is " + new Date() + "\n";
+	@GetMapping(value = "view-test")
+	public String viewTest(RedirectAttributes model) {
+		model.addFlashAttribute("test", "test");
+		return "redirect:http://localhost:3000/#/";
 	}
 	
 	@PostMapping(value = "sign-up-confirm")
