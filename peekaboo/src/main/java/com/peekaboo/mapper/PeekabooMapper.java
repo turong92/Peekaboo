@@ -8,7 +8,6 @@ import com.peekaboo.domain.UserDTO;
 
 @Mapper
 public interface PeekabooMapper {
-
 	public int insertContent(PeekabooDTO params);
 	public PeekabooDTO selectDetail(Long idx);
 	public int updateContent(PeekabooDTO params);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peekaboo.mapper.UserMapper">
+
+	<sql id="UserColumns">
+		id,
+		user_id,
+		user_name,
+		user_picture,
+		user_number,
+		user_email,
+		user_follower_cnt,
+		user_following_cnt,
+		user_join_date,
+		user_birth,
+		user_intro,
+		provider,
+		role
+	</sql>
+	
+	<select id="findByUserId" parameterType="User" resultType="User">
+		SELECT
+			<include refid="UserColumns" />
+		FROM
+			user
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<insert id="signUp" parameterType="User">
+		INSERT INTO user (
+			<include refid="UserColumns" />
+		) VALUES (
+					#{id},
+					#{user_id},
+					#{user_name},
+					#{user_picture},
+					NULL,
+					#{user_email},
+					0,
+					0,
+					NOW(),
+					NULL,
+					NULL,
+					#{provider},
+					#{role}
+				)
+	</insert>
+
+</mapper>

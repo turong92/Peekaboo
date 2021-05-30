@@ -10,25 +10,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.peekaboo.domain.PeekabooDTO;
 import com.peekaboo.service.PeekabooService;
 
-@RestController
+@Controller
 public class PeekabooController {
 	
 	@Autowired
 	private PeekabooService peekabooService;
 	
-	@GetMapping(value = "/")
-	public String index() {
-		return "hello world!";
+	@GetMapping(value = "test")
+	public @ResponseBody String test1() {
+		return "hello! server time is " + new Date() + "\n";
 	}
 	
-	@GetMapping(value = "test")
-	public String test1() {
-		return "hello! server time is " + new Date() + "\n";
+	@GetMapping(value = "view-test")
+	public String viewTest(RedirectAttributes model) {
+		model.addFlashAttribute("test", "test");
+		return "redirect:http://localhost:3000/#/";
 	}
 	
 	@PostMapping(value = "sign-up-confirm")
@@ -37,7 +40,6 @@ public class PeekabooController {
 		for(String key : allParams.keySet()) {
 			result += key + " : " + allParams.get(key) + " ";
 		}
-		
 		return result;
 	}
 	
@@ -90,8 +92,8 @@ public class PeekabooController {
 }
 
 /*
-湲곗〈�쓽 URI 留ㅽ븨) @RequestMapping(value = "...", method = RequestMethod.XXX)
+기존의 URI 매핑) @RequestMapping(value = "...", method = RequestMethod.XXX)
 
-Spring 4.3 �씠�썑 �깉濡쒖슫 URI 留ㅽ븨) @xxxMapping(value = "...")
+Spring 4.3 이후 새로운 URI 매핑) @xxxMapping(value = "...")
 GetMapping, PostMapping
 */
