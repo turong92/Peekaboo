@@ -16,32 +16,7 @@
 		update_time,
 		delete_time
 	</sql>
-	
-	<sql id="contentColumns">
-		content_id,
-		user_id,
-		user_name,
-		allow_range,
-		content_picture,
-		post_time,
-		reply_id,
-		comment_cnt,
-		like_cnt
-	</sql>
-	
-	<sql id="userColumns">
-		user_id,
-		user_name,
-		user_password,
-		user_picture,
-		user_number,
-		user_email,
-		user_follower_cnt,
-		user_following_cnt,
-		user_join_date,
-		user_birth,
-		user_intro
-	</sql>
+
 	
 	<insert id="insertContent" parameterType="PeekabooDTO">
 		INSERT INTO peekaboo (
@@ -61,36 +36,7 @@
 				)
 	</insert>
 	
-	
-	
-	<insert id="insertUser" parameterType="UserDTO">
-		INSERT INTO user (
-			<include refid="userColumns" />
-		) VALUES (
-					#{userId},
-					#{userName},
-					#{userPassword},
-					IFNULL(#{userPicture}, 'N'),
-					IFNULL(#{userNumber}, 'N'),
-					IFNULL(#{UserEmail}, 'N'),
-					0,
-					0,
-					NOW(),
-					IFNULL(#{userBirth}, 'N'),
-					NULL
-				)
-	</insert>
-	
-	<insert id="insertFollow" parameterType="String">
-		INSERT INTO follow (
-			follower_id,
-			following_id
-		) VALUES (
-					#{follower},
-					#{following}
-				)
-	</insert>
-	
+
 	
 	
 	<select id="selectDetail" parameterType="long" resultType="PeekabooDTO">
