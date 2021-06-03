@@ -2,12 +2,6 @@ package com.peekaboo.domain;
 
 import java.security.Timestamp;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,9 +15,7 @@ public class User {
 	private String user_email;
 	private int user_follower_cnt;
 	private int user_following_cnt;
-	@CreationTimestamp
 	private Timestamp user_join_date;
-	@CreationTimestamp
 	private Timestamp user_birth;
 	private String user_intro;
 	

@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.peekaboo.configuration.oauth.provider.GoogleUserInfo;
+import com.peekaboo.configuration.oauth.provider.KaKaoUserInfo;
 import com.peekaboo.configuration.oauth.provider.NaverUserInfo;
 import com.peekaboo.configuration.oauth.provider.OAuth2UserInfo;
 import com.peekaboo.domain.User;
@@ -33,10 +34,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 		
 		OAuth2UserInfo oAuth2UserInfo = null;
-		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+		String registrationId = userRequest.getClientRegistration().getRegistrationId();
+		if(registrationId.equals("google")) {
 			oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
-		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+		}else if(registrationId.equals("naver")) {
 			oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+		}else if(registrationId.equals("kakao")) {
+			oAuth2UserInfo = new KaKaoUserInfo(oAuth2User.getAttributes());
 		}
 		
 		String provider = oAuth2UserInfo.getProvider();
@@ -49,6 +53,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		
 		
 		User user = userService.findByUserId(userId);
+		System.out.println(user.getId());
+		System.out.println(user.getUser_id());
 		if(user == null) {
 			//String user_name, String user_picture, String user_number, String user_email,
 //			int user_follower_cnt, int user_following_cnt, Timestamp user_join_date, Timestamp user_birth,

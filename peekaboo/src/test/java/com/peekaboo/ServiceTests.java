@@ -25,17 +25,17 @@ public class ServiceTests {
 	
 	@Test
 	public void testOfFindByUserId() {
-		User result = userService.findByUserId("1234");
+		//User result = userService.findByUserId("kakao_1755307561");
 		
 		try {
-			String json = new ObjectMapper().writeValueAsString(result);
+			String json = new ObjectMapper().writeValueAsString(userService.findByUserId("kakao_1755307561"));
 			System.out.println("=======================");
 			System.out.println(json);
 			System.out.println("=======================");
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("====================== result : " + result + "===================");
+		//System.out.println("====================== result : " + json + "===================");
 	}
 	
 	@Test
