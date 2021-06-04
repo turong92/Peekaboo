@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.peekaboo.mapper.UserMapper">
-
-	<sql id="UserColumns">
+	
+	<sql id="userColumns">
 		id,
 		user_id,
 		user_name,
@@ -18,33 +18,35 @@
 		role
 	</sql>
 	
-	<select id="findByUserId" parameterType="User" resultType="User">
+	<select id="findByUserId" parameterType="String" resultType="User">
 		SELECT
-			<include refid="UserColumns" />
+			<include refid="userColumns" />
 		FROM
 			user
 		WHERE
-			user_id = #{user_id}
+			user_id = #{userId}
 	</select>
 	
 	<insert id="signUp" parameterType="User">
 		INSERT INTO user (
-			<include refid="UserColumns" />
+			<include refid="userColumns" />
 		) VALUES (
-					#{id},
-					#{user_id},
-					#{user_name},
-					#{user_picture},
-					NULL,
-					#{user_email},
-					0,
-					0,
-					NOW(),
-					NULL,
-					NULL,
-					#{provider},
-					#{role}
-				)
+			#{id},
+			#{userId},
+			#{userName},
+			#{userPicture},
+			#{userNumber},
+			#{userEmail},
+			#{userFollowerCnt},
+			#{userFollowingCnt},
+			NOW(),
+			#{userBirth},
+			#{userIntro},
+			#{provider},
+			#{role}
+		)
+			
 	</insert>
+	
 
 </mapper>

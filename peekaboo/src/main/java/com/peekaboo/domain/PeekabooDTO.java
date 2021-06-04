@@ -2,11 +2,9 @@ package com.peekaboo.domain;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class PeekabooDTO {
 	private Long idx;
 	private String title;
