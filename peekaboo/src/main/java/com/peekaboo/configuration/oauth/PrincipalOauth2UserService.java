@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.peekaboo.configuration.oauth.provider.GoogleUserInfo;
+import com.peekaboo.configuration.oauth.provider.KaKaoUserInfo;
 import com.peekaboo.configuration.oauth.provider.NaverUserInfo;
 import com.peekaboo.configuration.oauth.provider.OAuth2UserInfo;
 import com.peekaboo.domain.User;
@@ -22,6 +23,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	private UserService userService;
 	
 	//구글에서 받은 userRequest 데이터 후처리 함수
+	@SuppressWarnings("unused")
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		System.out.println("getClientRegistration:" + userRequest.getClientRegistration()); // registrationId로 어떤 OAuth로 들어왔는지 확인 가능
@@ -33,10 +35,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 		
 		OAuth2UserInfo oAuth2UserInfo = null;
-		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+		String registrationId = userRequest.getClientRegistration().getRegistrationId();
+		if(registrationId.equals("google")) {
 			oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
-		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+		}else if(registrationId.equals("naver")) {
 			oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+		}else if(registrationId.equals("kakao")) {
+			oAuth2UserInfo = new KaKaoUserInfo(oAuth2User.getAttributes());
 		}
 		
 		String provider = oAuth2UserInfo.getProvider();
@@ -49,22 +54,24 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		
 		
 		User user = userService.findByUserId(userId);
+//		System.out.println(user.getId());
+//		System.out.println(user.getUserId());
 		if(user == null) {
 			//String user_name, String user_picture, String user_number, String user_email,
 //			int user_follower_cnt, int user_following_cnt, Timestamp user_join_date, Timestamp user_birth,
 //			String user_intro, String provider, String providerId, String role) {
 			user = User.builder()
 					.id(providerId)
-					.user_id(userId)
-					.user_name(name)
-					.user_picture(picture)
-					.user_number(null)
-					.user_email(email)
-					.user_follower_cnt(0)
-					.user_following_cnt(0)
-					.user_join_date(null)
-					.user_birth(null)
-					.user_intro(null)
+					.userId(userId)
+					.userName(name)
+					.userPicture(picture)
+					.userNumber(null)
+					.userEmail(email)
+					.userFollowerCnt(0)
+					.userFollowingCnt(0)
+					.userJoinDate(null)
+					.userBirth(null)
+					.userIntro(null)
 					.provider(provider)
 					.role(role)
 					.build();
