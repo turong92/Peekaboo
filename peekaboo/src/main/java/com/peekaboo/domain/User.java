@@ -1,6 +1,7 @@
 package com.peekaboo.domain;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,38 +9,37 @@ import lombok.Data;
 @Data
 public class User {
 	private String id;
-	private String user_id;
-	private String user_name;
-	private String user_picture;
-	private String user_number;
-	private String user_email;
-	private int user_follower_cnt;
-	private int user_following_cnt;
-	private Timestamp user_join_date;
-	private Timestamp user_birth;
-	private String user_intro;
+	private String userId;
+	private String userName;
+	private String userPicture;
+	private String userNumber;
+	private String userEmail;
+	private int userFollowerCnt;
+	private int userFollowingCnt;
+	private Timestamp userJoinDate;
+	private Timestamp userBirth;
+	private String userIntro;
 	
 	private String provider;
 	private String role;
 	
+	
 	@Builder
-	public User(String id, String user_id, String user_name, String user_picture, String user_number, String user_email,
-			int user_follower_cnt, int user_following_cnt, Timestamp user_join_date, Timestamp user_birth,
-			String user_intro, String provider, String role) {
+	public User(String id, String userId, String userName, String userPicture, String userNumber, String userEmail,
+			int userFollowerCnt, int userFollowingCnt, Timestamp userJoinDate, Timestamp userBirth,
+			String userIntro, String provider, String role) {
 		this.id = id;
-		this.user_id = user_id;
-		this.user_name = user_name;
-		this.user_picture = user_picture;
-		this.user_number = user_number;
-		this.user_email = user_email;
-		this.user_follower_cnt = user_follower_cnt;
-		this.user_following_cnt = user_following_cnt;
-		this.user_join_date = user_join_date;
-		this.user_birth = user_birth;
-		this.user_intro = user_intro;
+		this.userId = userId;
+		this.userName = userName;
+		this.userPicture = userPicture;
+		this.userNumber = userNumber;
+		this.userEmail = userEmail;
+		this.userFollowerCnt = userFollowerCnt;
+		this.userFollowingCnt = userFollowingCnt;
+		this.userJoinDate = userJoinDate;
+		this.userBirth = userBirth;
+		this.userIntro = userIntro;
 		this.provider = provider;
 		this.role = role;
 	}
-	
-	
 }

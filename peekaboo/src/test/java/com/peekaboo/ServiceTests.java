@@ -1,6 +1,6 @@
 package com.peekaboo;
 
-import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -25,17 +25,20 @@ public class ServiceTests {
 	
 	@Test
 	public void testOfFindByUserId() {
-		//User result = userService.findByUserId("kakao_1755307561");
+		User result = userService.findByUserId("google_115854284849039362768");
 		
 		try {
-			String json = new ObjectMapper().writeValueAsString(userService.findByUserId("kakao_1755307561"));
+			String json = new ObjectMapper().writeValueAsString(result);
 			System.out.println("=======================");
 			System.out.println(json);
 			System.out.println("=======================");
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		//System.out.println("====================== result : " + json + "===================");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println("====================== result : " + result + "===================");
+		System.out.println(sdf.format(result.getUserJoinDate()));
 	}
 	
 	@Test

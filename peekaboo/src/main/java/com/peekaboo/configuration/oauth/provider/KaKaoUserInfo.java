@@ -37,7 +37,7 @@ public class KaKaoUserInfo implements OAuth2UserInfo{
 	
 	@Override
 	public String getPicture() {
-		return (String) profile.get("profile_image");
+		return (String) profile.get("profile_image_url");
 	}
 	
 }
