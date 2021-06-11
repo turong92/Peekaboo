@@ -1,6 +1,12 @@
 package com.peekaboo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.peekaboo.configuration.auth.PrincipalDetails;
+import com.peekaboo.domain.User;
 
 @Controller
 public class OAuth2Controller {
@@ -37,18 +46,34 @@ public class OAuth2Controller {
 	@RequestMapping(value = {"", "/"})
 	public String index(RedirectAttributes redirectAttr) {
 		//여러개 넣고 싶으면
-//		Map<String, Object> map = new HashMap<String,Object>();
-//		map.put("param1", "나의파람1");
-//		map.put("param2", "나의파람2");
-//		redirectAttr.addFlashAttribute("param1", map);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("param1", "나의파람1");
+		map.put("param2", "나의파람2");
+		redirectAttr.addFlashAttribute("param1", map);
 
-		redirectAttr.addFlashAttribute("id", "imid");
-		return "redirect:http://localhost:3000/#/sign-in";
+		//redirectAttr.addFlashAttribute("id", "imid");
+		//redirectAttr.addFlashAttribute("test", "tttttttttttt");
+		return "redirect:http://localhost:3000/#/login/sign-in";
 	}
 	
-	@PostMapping(value = "get-my-id")
-	public @ResponseBody String loginProcess(Authentication authentication) {
-		return authentication.getPrincipal().toString();
+	@PostMapping(value = "login-process")
+	public @ResponseBody Map<String, String> loginProcess(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+		System.out.println("principalDetails userId : " + principalDetails.getUserId());
+		System.out.println("principalDetails userName : " + principalDetails.getUserName());
+		Map<String, String> map = new HashMap<>();
+		map.put("userId", principalDetails.getUserId());
+		map.put("userName", principalDetails.getUserName());
+		return map;
+	}
+	
+	@PostMapping(value = "principalDetails")
+	public @ResponseBody Map<String, String> testPrincipalDetails(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+		System.out.println("principalDetails userId : " + principalDetails.getUserId());
+		System.out.println("principalDetails userName : " + principalDetails.getUserName());
+		Map<String, String> map = new HashMap<>();
+		map.put("userId", principalDetails.getUserId());
+		map.put("userName", principalDetails.getUserName());
+		return map;
 	}
 
 }
