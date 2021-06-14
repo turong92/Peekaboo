@@ -11,6 +11,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peekaboo.domain.PeekabooDTO;
 import com.peekaboo.domain.User;
+import com.peekaboo.mapper.MuteContentMapper;
+import com.peekaboo.service.FollowService;
+import com.peekaboo.service.LikeService;
+import com.peekaboo.service.MuteContentService;
 import com.peekaboo.service.PeekabooService;
 import com.peekaboo.service.UserService;
 
@@ -19,6 +23,12 @@ public class ServiceTests {
 	
 	@Autowired
 	private PeekabooService peekabooService;
+	@Autowired
+	private FollowService followService;
+	@Autowired
+	private LikeService likeService;
+	@Autowired
+	private MuteContentService muteContentService;
 	
 	@Autowired
 	private UserService userService;
@@ -64,6 +74,7 @@ public class ServiceTests {
 		System.out.println("================ result : " + result + " =================");
 	}
 	
+	
 	@Test
 	public void testOfGetDetail() {
 		PeekabooDTO result = peekabooService.getPeekabooDetail((long) 2);
@@ -96,5 +107,78 @@ public class ServiceTests {
 		}
 		
 	}
-
+	//follow
+	@Test
+	public void testFollow() {
+		String follower_id = "123easfd325";
+		String following_id = "123423q5rzsdf";
+		
+		boolean result = followService.insertFollow(follower_id, following_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	@Test
+	public void testFollowDelete() {
+		String follower_id = "123easfd325";
+		String following_id = "123423q5rzsdf";
+		
+		boolean result = followService.deleteFollow(follower_id, following_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	@Test
+	public void testFollower() {
+		String follower_id = "123easfd325";
+		String following_id = "123423q5rzsdf";
+		
+		List<String> result = followService.getFollowingList(follower_id);
+		System.out.println("================ result : " + result.toString() + " =================");
+		for(int i=0;i<result.size();i++) {
+			System.out.println("================ result : " + result.get(i) + " =================");
+		}
+		
+	}
+	@Test
+	public void testIsFollow() {
+		String follower_id = "123easfd325";
+		String following_id = "123423q5rzsdff";
+		
+		boolean result = followService.isFollow(follower_id, following_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	//like
+	@Test
+	public void testLike() {
+		String user_id = "123easfd325";
+		Long content_id = (long) 1234563;
+		
+		boolean result = likeService.insertLike(content_id, user_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	
+	@Test
+	public void testLikeDelete() {
+		String user_id = "123easfd325";
+		Long content_id = (long) 1234563;
+		
+		boolean result = likeService.deleteLike(content_id, user_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	
+	@Test
+	public void testIsLike() {
+		String user_id = "123easfd325";
+		Long content_id = (long) 1234563;
+		
+		boolean result = likeService.isLike(content_id, user_id);
+		System.out.println("================ result : " + result + " =================");
+	}
+	//Mute
+	
+	@Test
+	public void testMute() {
+		String user_id = "123easfd325";
+		Long content_id = (long) 1234563;
+		
+		boolean result = muteContentService.insertMute(user_id, content_id);
+		System.out.println("================ result : " + result + " =================");
+	}
 }

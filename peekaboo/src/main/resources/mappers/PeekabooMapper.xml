@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- <mapper namespace="mappers.PeekabooMapper"></mapper> -->
 <mapper namespace="com.peekaboo.mapper.PeekabooMapper">
 
 	<sql id="peekabooColumns">
@@ -17,7 +16,7 @@
 		delete_time
 	</sql>
 
-	
+
 	<insert id="insertContent" parameterType="PeekabooDTO">
 		INSERT INTO peekaboo (
 			<include refid="peekabooColumns" />
@@ -72,7 +71,7 @@
 			idx = #{idx}
 	</update>
 	
-	<select id="selectContentList" parameterType="PeekabooDTO" resultType="peekabooDTO">
+	<select id="selectContentList" parameterType="PeekabooDTO" resultType="PeekabooDTO">
 		SELECT
 			<include refid="peekabooColumns" />
 		FROM
