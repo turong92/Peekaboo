@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peekaboo.mapper.MuteContentMapper">
+
+	<sql id="MuteColumns">
+		user_id,
+		mute_content
+	</sql>
+	
+	<insert id="insertMute">
+		INSERT INTO mute_content (
+			<include refid="MuteColumns" />
+		) VALUES (
+					#{user_id},
+					#{mute_content}
+				)
+	</insert>
+	
+	<select id="getMute"  resultType="Integer">
+		SELECT
+			mute_content
+		FROM
+			mute_content
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<delete id="deleteMute">
+		DELETE
+		FROM
+			mute_content
+		WHERE
+			user_id = #{user_id} and
+			mute_content = #{mute_content}
+	</delete>
+	
+	<select id="isMute" resultType="Integer">
+		SELECT EXISTS 
+			(SELECT *
+			 FROM
+				mute_content
+			 WHERE
+				user_id = #{user_id} and
+				mute_content = #{mute_content}
+			)
+	</select>
+	
+</mapper>

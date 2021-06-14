@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peekaboo.mapper.FollowMapper">
+
+	<sql id="FollowColumns">
+		follower_id,
+		following_id
+	</sql>
+	
+	<insert id="insertFollow">
+		INSERT INTO follow (
+			<include refid="FollowColumns" />
+		) VALUES (
+					#{follower_id},
+					#{following_id}
+				)
+	</insert>
+	
+	<select id="getFollower"  resultType="String">
+		SELECT
+			follower_id
+		FROM
+			follow
+		WHERE
+			following_id = #{following_id}
+	</select>
+	
+	<select id="getFollowing"  resultType="String">
+		SELECT
+			following_id
+		FROM
+			follow
+		WHERE
+			follower_id = #{follower_id}
+	</select>
+	
+	<delete id="deleteFollow">
+		DELETE
+		FROM
+			follow
+		WHERE
+			follower_id = #{follower_id} and
+			following_id = #{following_id}
+	</delete>
+	
+	<select id="isFollow" resultType="Integer">
+		SELECT EXISTS 
+			(SELECT *
+			 FROM
+				follow
+			 WHERE
+				follower_id = #{follower_id} and
+				following_id = #{following_id}
+			)
+	</select>
+	
+	
+</mapper>
