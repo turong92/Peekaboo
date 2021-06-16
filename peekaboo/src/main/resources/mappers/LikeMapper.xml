@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peekaboo.mapper.LikeMapper">
+
+	<sql id="LikeColumns">
+		user_id,
+		content_id
+	</sql>
+	
+	<insert id="insertLike">
+		INSERT INTO like_content (
+			<include refid="LikeColumns" />
+		) VALUES (
+					#{user_id},
+					#{content_id}
+				)
+	</insert>
+	
+	<select id="getLikeUser"  resultType="String">
+		SELECT
+			user_id
+		FROM
+			like_content
+		WHERE
+			content_id = #{content_id}
+	</select>
+	
+	<select id="getLikeContent"  resultType="Long">
+		SELECT
+			content_id
+		FROM
+			like_content
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<delete id="deleteLike">
+		DELETE
+		FROM
+			like_content
+		WHERE
+			user_id = #{user_id} and
+			content_id = #{content_id}
+	</delete>
+	
+	<select id="isLike" resultType="Integer">
+		SELECT EXISTS 
+			(SELECT *
+			 FROM
+				like_content
+			 WHERE
+				user_id = #{user_id} and
+				content_id = #{content_id}
+			)
+	</select>
+	
+	
+</mapper>

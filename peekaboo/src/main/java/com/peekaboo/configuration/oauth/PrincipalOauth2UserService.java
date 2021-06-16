@@ -2,6 +2,8 @@ package com.peekaboo.configuration.oauth;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -9,6 +11,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.peekaboo.configuration.auth.PrincipalDetails;
 import com.peekaboo.configuration.oauth.provider.GoogleUserInfo;
 import com.peekaboo.configuration.oauth.provider.KaKaoUserInfo;
 import com.peekaboo.configuration.oauth.provider.NaverUserInfo;
@@ -21,6 +24,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	
 	@Autowired
 	private UserService userService;
+	
+	private HttpSession httpSession;
 	
 	//구글에서 받은 userRequest 데이터 후처리 함수
 	@SuppressWarnings("unused")
@@ -78,6 +83,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 			userService.signUp(user);
 		}
 		
-		return super.loadUser(userRequest);
+		return new PrincipalDetails(user, oAuth2User.getAttributes());
 	}
 }
