@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peekaboo.mapper.contentMapper">
+
+	<sql id="inserContentColumns">
+		user_id,
+		user_name,
+		allow_range,
+		reply_id,
+		content_text,
+		content_picture,
+		comment_cnt,
+		like_cnt,
+		is_delete,
+		is_update,
+		post_time,
+		delete_time,
+		update_time
+	</sql>
+
+
+	<insert id="insertContent" parameterType="Content">
+		INSERT INTO content (
+			<include refid="inserContentColumns" />
+		) VALUES (
+					#{user_id},
+					#{user_name},
+					#{allow_range},
+					#{reply_id},
+					#{content_text},
+					#{content_picture},
+					0,
+					0,
+					'N',
+					'N',
+					NOW(),
+					NULL,
+					NOW()				
+				)
+	</insert>
+	
+	<update id="deleteContent" parameterType="long">
+		UPDATE content
+		SET
+			is_delete = 1,
+			delete_time = NOW()
+		WHERE
+			content_id = #{content_id}
+	</update>
+	
+	<update id="updateContent" parameterType="Content">
+		UPDATE content
+		SET
+			update_time = NOW(),
+			content_text = #{content_text},
+			content_picture = #{content_picture},
+			allow_range = #{allow_range},
+			is_update = is_update=1
+		WHERE
+			content_id = #{content_id}
+	</update>
+	
+	<select id="getMainContentByUserId" parameterType="String" resultType="Content">
+		SELECT
+			*
+		FROM
+			content
+		WHERE
+			(is_delete = 'N' and user_id in(SELECT following_id as user_id from follow WHERE follower_id = #{user_id}))or 
+			(is_delete = 'N' and user_id = #{user_id})			
+		ORDER BY
+			update_time DESC
+	</select>
+	 
+</mapper>

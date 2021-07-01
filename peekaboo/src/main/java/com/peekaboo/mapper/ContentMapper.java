@@ -11,5 +11,9 @@ import com.peekaboo.domain.Content;
 public interface ContentMapper {
 	//Content
 	public int insertContent(Content content);
-	public List<Content> getContentListByUser(String user_id);
+	public int deleteContent(Long contentId);
+	public int updateContent(Content content);
+	public List<Content> getMainContentByUserId(String userId);
+	public Content getContentByContentId(Long contentId);
+	
 }
