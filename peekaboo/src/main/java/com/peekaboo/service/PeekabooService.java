@@ -11,6 +11,5 @@ public interface PeekabooService {
 	public boolean deletePeekaboo(Long idx);
 	public List<PeekabooDTO> getPeekabooList();
 
-	
-	
+	public long registerPeekaboo1(PeekabooDTO params);
 }
