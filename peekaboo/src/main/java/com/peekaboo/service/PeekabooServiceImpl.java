@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.peekaboo.domain.PeekabooDTO;
-import com.peekaboo.domain.User;
 import com.peekaboo.mapper.PeekabooMapper;
 
 @Service
@@ -56,6 +55,16 @@ public class PeekabooServiceImpl implements PeekabooService{
 			peekabooList = peekabooMapper.selectContentList();
 		}
 		return peekabooList;
+	}
+
+	@Override
+	public long registerPeekaboo1(PeekabooDTO params) {
+		peekabooMapper.insertContent1(params);
+		
+		System.out.println("========================getIdx============================");
+		System.out.println(params.getIdx());
+		
+		return params.getIdx();
 	}
 
 

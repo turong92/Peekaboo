@@ -14,4 +14,6 @@ public interface PeekabooMapper {
 	public List<PeekabooDTO> selectContentList();
 	public int selectTotalCount();
 	
+	public long insertContent1(PeekabooDTO params);
+	
 }

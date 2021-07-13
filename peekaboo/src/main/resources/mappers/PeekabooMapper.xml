@@ -35,6 +35,27 @@
 				)
 	</insert>
 	
+	<insert id="insertContent1" parameterType="PeekabooDTO">
+		INSERT INTO peekaboo (
+			<include refid="peekabooColumns" />
+		) VALUES (
+					#{idx},
+					#{title},
+					#{content},
+					#{id},
+					0,
+					IFNULL(#{noticeYn}, 'N'),
+					IFNULL(#{secretYn}, 'N'),
+					'N',
+					NOW(),
+					NULL,
+					NULL
+				)
+		<selectKey keyProperty="idx" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
 
 	
 	

@@ -34,6 +34,11 @@ public class ServiceTests {
 	private UserService userService;
 	
 	@Test
+	public void testOfIdxNumber() {
+		
+	}
+	
+	@Test
 	public void testOfFindByUserId() {
 		User result = userService.findByUserId("google_115854284849039362768");
 		
@@ -68,9 +73,8 @@ public class ServiceTests {
 		params.setTitle("service test update");
 		params.setContent("service test update");
 		params.setId("service id");
-		params.setIdx((long) 2);
 		
-		boolean result = peekabooService.registerPeekaboo(params);
+		long result = peekabooService.registerPeekaboo1(params);
 		System.out.println("================ result : " + result + " =================");
 	}
 	
