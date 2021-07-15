@@ -52,16 +52,19 @@ public class PeekabooController {
 		return result;
 	}
 	
-	@GetMapping(value = "write")
-	public void openContentWrite(Model model) {
+	@PostMapping(value = "write-content")
+	@ResponseBody public String contentWrite(@RequestBody Map<String, String> allParams) {
+		StringBuilder sb = new StringBuilder();
+		for(String key : allParams.keySet()) {
+			sb.append(key + " : " + allParams.get(key) + " ");
+		}
 		
-		String title = "test title";
-		String content = "test content";
-		String writer = "test turong";
+		PeekabooDTO peekaboo = new PeekabooDTO();
+		peekaboo.setTitle("test title");
+		peekaboo.setId(allParams.get("userId"));
+		peekaboo.setContent(allParams.get("content"));
 		
-		model.addAttribute("title", title);
-		model.addAttribute("content", content);
-		model.addAttribute("writer", writer);
+		return Long.toString(peekabooService.registerPeekaboo1(peekaboo));
 	}
 	
 	@PostMapping(value = "read-home-contents")
