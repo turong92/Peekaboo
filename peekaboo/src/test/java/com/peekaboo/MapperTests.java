@@ -6,7 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.peekaboo.domain.Content;
 import com.peekaboo.domain.PeekabooDTO;
+import com.peekaboo.mapper.ContentMapper;
 import com.peekaboo.mapper.PeekabooMapper;
 
 @SpringBootTest
@@ -14,6 +16,8 @@ public class MapperTests {
 
 	@Autowired
 	private PeekabooMapper peekabooMapper;
+	@Autowired
+	private ContentMapper contentMapper;
 	
 	@Test
 	public void testOfInsert() {
@@ -80,4 +84,12 @@ public class MapperTests {
 			}
 		}
 	}
+	
+	@Test
+	public void testOfContent() {
+		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
+		int queryResult = contentMapper.insertContent(content);
+		System.out.println(queryResult);
+	}
+	
 }

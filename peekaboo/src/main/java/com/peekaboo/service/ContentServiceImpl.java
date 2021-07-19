@@ -3,10 +3,12 @@ package com.peekaboo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.peekaboo.domain.Content;
 import com.peekaboo.mapper.ContentMapper;
 
+@Service
 public class ContentServiceImpl implements ContentService{
 	@Autowired
 	private ContentMapper contentMapper;

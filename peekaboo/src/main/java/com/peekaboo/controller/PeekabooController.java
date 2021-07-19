@@ -67,7 +67,7 @@ public class PeekabooController {
 	@PostMapping(value = "read-home-contents")
 	public List<PeekabooDTO> readHomeContents(){
 		String result = "";
-		List<PeekabooDTO> list = peekabooService.getPeekabooList();
+		//List<PeekabooDTO> list = peekabooService.getPeekabooList();
 //		for(PeekabooDTO dto : list) {
 //			try {
 //				String json = new ObjectMapper().writeValueAsString(dto);
@@ -77,7 +77,7 @@ public class PeekabooController {
 //				e.printStackTrace();
 //			}
 //		}
-		return list;
+		return null;
 	}
 	
 //	@GetMapping(value = "write")

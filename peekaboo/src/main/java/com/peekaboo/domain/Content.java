@@ -4,12 +4,16 @@ import java.sql.Timestamp;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class Content {
 	private Long contentId;
 	private String userId;
-	private String user_name;
+	private String userName;
 	private int allowRange;
 	private Long replyId;
 	private String contentText;
@@ -25,7 +29,7 @@ public class Content {
 	@Builder
 	public Content(Long contentId,
 			String userId,
-			String user_name,
+			String userName,
 			int allowRange,
 			Long replyId,
 			String contentText,
@@ -39,7 +43,7 @@ public class Content {
 			Timestamp updateTime) {
 		this.contentId=contentId;
 		this.userId=userId;
-		this.user_name=user_name;
+		this.userName=userName;
 		this.allowRange=allowRange;
 		this.replyId=replyId;
 		this.contentText=contentText;

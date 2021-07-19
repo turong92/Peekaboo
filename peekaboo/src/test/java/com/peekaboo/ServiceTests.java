@@ -9,13 +9,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.peekaboo.domain.Content;
 import com.peekaboo.domain.PeekabooDTO;
+import com.peekaboo.domain.Tester;
 import com.peekaboo.domain.User;
 import com.peekaboo.mapper.MuteContentMapper;
+import com.peekaboo.service.ContentService;
 import com.peekaboo.service.FollowService;
 import com.peekaboo.service.LikeService;
 import com.peekaboo.service.MuteContentService;
 import com.peekaboo.service.PeekabooService;
+import com.peekaboo.service.TestService;
 import com.peekaboo.service.UserService;
 
 @SpringBootTest
@@ -32,6 +36,11 @@ public class ServiceTests {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private TestService testService;
 	
 	@Test
 	public void testOfFindByUserId() {
@@ -61,7 +70,7 @@ public class ServiceTests {
 		boolean result = userService.signUp(user);
 		System.out.println("================ result : " + result + " =================");
 	}
-	
+	/*
 	@Test
 	public void testOfRegister() {
 		PeekabooDTO params = new PeekabooDTO();
@@ -107,6 +116,7 @@ public class ServiceTests {
 		}
 		
 	}
+	*/
 	//follow
 	@Test
 	public void testFollow() {
@@ -181,4 +191,35 @@ public class ServiceTests {
 		boolean result = muteContentService.insertMute(user_id, content_id);
 		System.out.println("================ result : " + result + " =================");
 	}
+	//Content
+	@Test
+	public void testContent() {
+		
+		
+		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
+		
+		
+		
+		boolean result = contentService.insertContent(content);
+		
+		System.out.println("================ result : " + result + " =================");
+		
+		
+	}
+	@Test
+	public void testTest() {
+		
+		
+		Tester content = new Tester(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
+		
+		
+		
+		boolean result = testService.insertTest(content);
+		
+		System.out.println("================ result : " + result + " =================");
+		
+		
+	}
+	
+	
 }
