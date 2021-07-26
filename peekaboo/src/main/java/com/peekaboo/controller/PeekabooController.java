@@ -6,14 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peekaboo.domain.PeekabooDTO;
 import com.peekaboo.service.PeekabooService;
 
@@ -67,9 +68,12 @@ public class PeekabooController {
 		return Long.toString(peekabooService.registerPeekaboo1(peekaboo));
 	}
 	
-	@PostMapping(value = "read-home-contents")
-	public List<PeekabooDTO> readHomeContents(){
-		String result = "";
+	//====================plz look this function=================================
+	@PostMapping(value = "read-contents")
+	@ResponseBody public List<PeekabooDTO> readHomeContents(@RequestBody Map<String, String> allParams){
+		System.out.println(allParams.get("userId"));
+		System.out.println(allParams.get("contentId"));
+//		String result = "";
 		List<PeekabooDTO> list = peekabooService.getPeekabooList();
 //		for(PeekabooDTO dto : list) {
 //			try {
