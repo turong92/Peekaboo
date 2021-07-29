@@ -71,8 +71,24 @@ public class PeekabooController {
 	//====================plz look this function=================================
 	@PostMapping(value = "read-contents")
 	@ResponseBody public List<PeekabooDTO> readHomeContents(@RequestBody Map<String, String> allParams){
-		System.out.println(allParams.get("userId"));
-		System.out.println(allParams.get("contentId"));
+		String menu = allParams.get("selectedMenu"); 
+		switch (menu) {
+			case "home": {
+				System.out.println(menu);
+				break;
+			}
+			default:{
+				// id로 들어올 때
+				System.out.println(menu);
+				String contentId = allParams.get("contentId");
+				if(contentId != null) {
+					System.out.println(allParams.get("contentId"));
+				}
+			}
+				
+		}
+//		System.out.println(allParams.get("userId"));
+//		System.out.println(allParams.get("contentId"));
 //		String result = "";
 		List<PeekabooDTO> list = peekabooService.getPeekabooList();
 //		for(PeekabooDTO dto : list) {
