@@ -14,14 +14,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.peekaboo.domain.Content;
 import com.peekaboo.domain.PeekabooDTO;
+import com.peekaboo.domain.User;
+import com.peekaboo.service.ContentService;
 import com.peekaboo.service.PeekabooService;
+import com.peekaboo.service.UserService;
 
 @Controller
 public class PeekabooController {
 	
 	@Autowired
 	private PeekabooService peekabooService;
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping(value = "test")
 	public @ResponseBody String test1() {
@@ -79,6 +87,53 @@ public class PeekabooController {
 //		}
 		return null;
 	}
+	@PostMapping(value = "profile-contents")
+	@ResponseBody public List<Content> getProfileContents(@RequestBody Map<String, String> allParams){
+		System.out.println(allParams.get("userId"));
+		System.out.println(allParams.get("loginId"));
+		//proflieContent
+		//1. 현재 로그인 되어있는 아이디랑 가져온 아이디랑 비교를한다.
+		//2. 가져온 아이디로 연관된 글 목록을 가져온다
+		List<Content> list;
+		String userId = allParams.get("userId");
+		String loginId = allParams.get("loginId");
+		//equal > myprofile > user's contents and followers contents 
+		if(userId.equals(loginId)) {
+			list = contentService.getMainContentByUserId(userId);
+		}
+		//not equal > other profile > only user's contents
+		else {
+			list = contentService.getContentByUserId(userId);
+		}
+		return list;
+	}
+	@PostMapping(value = "profile-user")
+	@ResponseBody public User getUserProfile(@RequestBody Map<String, String> allParams) {
+		//userProfile
+		//1. 요청한 아이디를 가져온다.
+		//2. 아이디로 유저정보를 가져온다.
+		User userInfo;
+		String userId = allParams.get("userId");
+		//equal > myprofile > user's contents and followers contents 
+		userInfo = userService.findByUserId(userId);
+		return userInfo;
+		
+	}
+	@PostMapping(value = "content-info")
+	@ResponseBody public Content getContentInfo(@RequestBody Map<String, String> allParams) {
+		Content contentInfo;
+		Long contentId = Long.parseLong(allParams.get("contentId"));
+		contentInfo = contentService.getContentByContentId(contentId);
+		return contentInfo;
+	}
+	@PostMapping(value = "content-reply")
+	@ResponseBody public List<Content> getContentReply(@RequestBody Map<String, String> allParams) {
+		List<Content> contentReply;
+		Long contentId = Long.parseLong(allParams.get("contentId"));
+		contentReply = contentService.getReplyByContentId(contentId);
+		return contentReply;
+	}
+	
 	
 //	@GetMapping(value = "write")
 //	public Map<String, String> openContentWrite() {

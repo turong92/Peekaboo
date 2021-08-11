@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peekaboo.domain.Content;
 import com.peekaboo.domain.PeekabooDTO;
-import com.peekaboo.domain.Tester;
 import com.peekaboo.domain.User;
 import com.peekaboo.mapper.MuteContentMapper;
 import com.peekaboo.service.ContentService;
@@ -19,7 +18,6 @@ import com.peekaboo.service.FollowService;
 import com.peekaboo.service.LikeService;
 import com.peekaboo.service.MuteContentService;
 import com.peekaboo.service.PeekabooService;
-import com.peekaboo.service.TestService;
 import com.peekaboo.service.UserService;
 
 @SpringBootTest
@@ -39,8 +37,6 @@ public class ServiceTests {
 	
 	@Autowired
 	private ContentService contentService;
-	@Autowired
-	private TestService testService;
 	
 	@Test
 	public void testOfFindByUserId() {
@@ -196,7 +192,7 @@ public class ServiceTests {
 	public void testContent() {
 		
 		
-		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
+		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, null, null, null, null, null);
 		
 		
 		
@@ -206,19 +202,23 @@ public class ServiceTests {
 		
 		
 	}
+	//Content
 	@Test
-	public void testTest() {
-		
-		
-		Tester content = new Tester(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
-		
-		
-		
-		boolean result = testService.insertTest(content);
-		
-		System.out.println("================ result : " + result + " =================");
-		
-		
+	public void profileContent() {
+		List<Content> list;
+		String userId = "asdfasf";
+		String loginId = "asdfasf";
+		//equal > myprofile > user's contents and followers contents 
+		if(userId.equals(loginId)) {
+			list = contentService.getMainContentByUserId(userId);
+		}
+		//not equal > other profile > only user's contents
+		else {
+			list = contentService.getContentByUserId(userId);
+		}
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i).getContentText());
+		}
 	}
 	
 	

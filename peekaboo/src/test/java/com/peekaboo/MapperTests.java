@@ -87,7 +87,7 @@ public class MapperTests {
 	
 	@Test
 	public void testOfContent() {
-		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, 0, 0, null, null, null);
+		Content content = new Content(null, "asdfasf", "asdfsafd", 0, null, "sex", null, 0, 0, null, null, null, null, null);
 		int queryResult = contentMapper.insertContent(content);
 		System.out.println(queryResult);
 	}

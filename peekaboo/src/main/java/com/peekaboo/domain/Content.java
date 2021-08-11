@@ -4,12 +4,8 @@ import java.sql.Timestamp;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class Content {
 	private Long contentId;
 	private String userId;
@@ -20,8 +16,8 @@ public class Content {
 	private String contentPicture;
 	private int commentCnt;
 	private int likeCnt;
-	private int isDelete;
-	private int isUpdate;
+	private String isDelete;
+	private String isUpdate;
 	private Timestamp postTime;
 	private Timestamp deleteTime;
 	private Timestamp updateTime;
@@ -36,8 +32,8 @@ public class Content {
 			String contentPicture,
 			int commentCnt,
 			int likeCnt,
-			int isDelete,
-			int isUpdate,
+			String isDelete,
+			String isUpdate,
 			Timestamp postTime,
 			Timestamp deleteTime,
 			Timestamp updateTime) {

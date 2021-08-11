@@ -48,4 +48,14 @@ public class ContentServiceImpl implements ContentService{
 		return contentMapper.getContentByContentId(contentId);
 	}
 
+	@Override
+	public List<Content> getContentByUserId(String userId) {
+		return contentMapper.getContentByUserId(userId);
+	}
+
+	@Override
+	public List<Content> getReplyByContentId(Long contentId) {
+		return contentMapper.getReplyByUserId(contentId);
+	}
+
 }

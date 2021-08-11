@@ -45,7 +45,7 @@
 	<update id="deleteContent" parameterType="long">
 		UPDATE content
 		SET
-			is_delete = 1,
+			is_delete = 'Y',
 			delete_time = NOW()
 		WHERE
 			content_id = #{content_id}
@@ -58,7 +58,7 @@
 			content_text = #{contentText},
 			content_picture = #{contentPicture},
 			allow_range = #{allowRange},
-			is_update = 1
+			is_update = 'Y'
 		WHERE
 			content_id = #{contentId}
 	</update>
