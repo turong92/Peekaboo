@@ -58,4 +58,9 @@ public class ContentServiceImpl implements ContentService{
 		return contentMapper.getReplyByUserId(contentId);
 	}
 
+	@Override
+	public List<Content> getMyContentByUserId(String userId) {
+		return contentMapper.getMyContentByUserId(userId);
+	}
+
 }

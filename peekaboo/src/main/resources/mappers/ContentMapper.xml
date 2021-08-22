@@ -74,5 +74,15 @@
 		ORDER BY
 			update_time DESC
 	</select>
+	<select id="getMyContentByUserId" parameterType="String" resultType="Content">
+		SELECT
+			*
+		FROM
+			content
+		WHERE
+			(is_delete = 'N' and user_id = #{userId})
+		ORDER BY
+			update_time DESC
+	</select>
 	 
 </mapper>

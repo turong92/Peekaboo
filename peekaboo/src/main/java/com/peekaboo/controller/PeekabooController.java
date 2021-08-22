@@ -87,6 +87,17 @@ public class PeekabooController {
 //		}
 		return null;
 	}
+	@PostMapping(value = "main-contents")
+	@ResponseBody public List<Content> getMainContents(@RequestBody Map<String, String> allParams){
+		//로그인된 유저의 아이디를 가지고온다.
+		System.out.println(allParams.get("loginId"));
+		String loginId = allParams.get("loginId");
+		//로그인된 유저의 글과 팔로워들의 글을 가지고온다.
+		List<Content> list;
+		list = contentService.getMainContentByUserId(loginId);
+		return list;
+	}
+	
 	@PostMapping(value = "profile-contents")
 	@ResponseBody public List<Content> getProfileContents(@RequestBody Map<String, String> allParams){
 		System.out.println(allParams.get("userId"));
@@ -99,7 +110,7 @@ public class PeekabooController {
 		String loginId = allParams.get("loginId");
 		//equal > myprofile > user's contents and followers contents 
 		if(userId.equals(loginId)) {
-			list = contentService.getMainContentByUserId(userId);
+			list = contentService.getMyContentByUserId(userId);
 		}
 		//not equal > other profile > only user's contents
 		else {

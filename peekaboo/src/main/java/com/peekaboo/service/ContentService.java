@@ -12,4 +12,5 @@ public interface ContentService {
 	public Content getContentByContentId(Long contentId);
 	public List<Content> getContentByUserId(String string);
 	public List<Content> getReplyByContentId(Long contentId);
+	public List<Content> getMyContentByUserId(String userId);
 }

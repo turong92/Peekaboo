@@ -17,4 +17,5 @@ public interface ContentMapper {
 	public Content getContentByContentId(Long contentId);
 	public List<Content> getContentByUserId(String userId);
 	public List<Content> getReplyByUserId(Long contentId);
+	public List<Content> getMyContentByUserId(String userId);
 }
