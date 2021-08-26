@@ -33,8 +33,8 @@ public class LikeServiceImpl implements LikeService{
 	}
 
 	@Override
-	public List<String> getLikeUserList(Long user_id) {
-		return likeMapper.getLikeUser(user_id);
+	public List<String> getLikeUserList(Long content_id) {
+		return likeMapper.getLikeUser(content_id);
 	}
 
 	@Override
@@ -47,6 +47,11 @@ public class LikeServiceImpl implements LikeService{
 		int queryResult = 0;
 		queryResult = likeMapper.isLike(content_id,user_id);
 		return (queryResult == 1) ? true : false;
+	}
+
+	@Override
+	public int getLikeCnt(Long contentId) {
+		return likeMapper.getLikeCnt(contentId);
 	}
 
 	

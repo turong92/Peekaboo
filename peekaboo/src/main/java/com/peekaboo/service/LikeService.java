@@ -9,4 +9,5 @@ public interface LikeService {
 		public List<String> getLikeUserList(Long user_id);
 		public List<Long> getLikeContentList(String user_id);
 		public boolean isLike(Long content_id,String user_id);
+		public int getLikeCnt(Long contentId);
 }

@@ -18,6 +18,7 @@ import com.peekaboo.domain.Content;
 import com.peekaboo.domain.PeekabooDTO;
 import com.peekaboo.domain.User;
 import com.peekaboo.service.ContentService;
+import com.peekaboo.service.LikeService;
 import com.peekaboo.service.PeekabooService;
 import com.peekaboo.service.UserService;
 
@@ -30,6 +31,8 @@ public class PeekabooController {
 	private ContentService contentService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LikeService likeService;
 	
 	@GetMapping(value = "test")
 	public @ResponseBody String test1() {
@@ -97,7 +100,7 @@ public class PeekabooController {
 		list = contentService.getMainContentByUserId(loginId);
 		return list;
 	}
-	
+	//profile
 	@PostMapping(value = "profile-contents")
 	@ResponseBody public List<Content> getProfileContents(@RequestBody Map<String, String> allParams){
 		System.out.println(allParams.get("userId"));
@@ -130,6 +133,25 @@ public class PeekabooController {
 		return userInfo;
 		
 	}
+	//content
+	@PostMapping(value = "write-content")
+	@ResponseBody public boolean writeContent(@RequestBody Map<String,String> allParams) {
+		//1. need inform : loginId, contentText, contentpicture, allowrange ...
+		String loginId = allParams.get("loginId");
+		String contentText = allParams.get("contentText");
+		String contentPicture = allParams.get("contentPicture");
+		int allowRange = Integer.parseInt(allParams.get("allowrange"));
+		//2. get username
+		User loginUser = userService.findByUserId(loginId);
+		String userName = loginUser.getUserName();
+		//3. set content
+		Content newContent = new Content(null, loginId, userName, allowRange, null, contentText, contentPicture, 0, 0, null, null, null, null, null);
+		//4. insert content
+		boolean result = contentService.insertContent(newContent);
+		//5. return result
+		return result;
+	}
+	
 	@PostMapping(value = "content-info")
 	@ResponseBody public Content getContentInfo(@RequestBody Map<String, String> allParams) {
 		Content contentInfo;
@@ -144,7 +166,25 @@ public class PeekabooController {
 		contentReply = contentService.getReplyByContentId(contentId);
 		return contentReply;
 	}
-	
+	//like
+	@PostMapping(value = "like-content")
+	@ResponseBody public int likeContent(@RequestBody Map<String, String> allParams) {
+		//loginId
+		String loginId = allParams.get("loginId");
+		//likeContent
+		Long contentId = Long.parseLong(allParams.get("contentId"));
+		//
+		boolean like = allParams.get("like").equals("like");
+		//if like = "like" add like table
+		if(like) {
+			likeService.insertLike(contentId, loginId);
+		}else {
+			likeService.deleteLike(contentId, loginId);
+		}
+		//get likeCnt
+		int likeCnt = likeService.getLikeCnt(contentId);
+		return likeCnt;
+	}
 	
 //	@GetMapping(value = "write")
 //	public Map<String, String> openContentWrite() {

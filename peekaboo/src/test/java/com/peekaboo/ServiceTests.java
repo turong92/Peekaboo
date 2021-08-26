@@ -220,6 +220,22 @@ public class ServiceTests {
 			System.out.println(list.get(i).getContentText());
 		}
 	}
-	
+	@Test
+	public void likeContent() {
+		//loginId
+		String loginId = "asdfasf";
+		//likeContent
+		Long contentId = (long) 2;
+		//
+		boolean like = true;
+		//if like = "like" add like table
+		if(like) {
+			likeService.insertLike(contentId, loginId);
+		}else {
+			likeService.deleteLike(contentId, loginId);
+		}
+		//get likeCnt
+		int likeCnt = likeService.getLikeCnt(contentId);
+	}
 	
 }

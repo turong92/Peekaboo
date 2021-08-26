@@ -13,4 +13,5 @@ public interface LikeMapper {
 	public List<String> getLikeUser(@Param("content_id")Long content_id);
 	public int deleteLike(@Param("content_id")Long content_id,@Param("user_id")String user_id);
 	public int isLike(@Param("content_id")Long content_id,@Param("user_id")String user_id);
+	public int getLikeCnt(@Param("content_id")Long content_id);
 }

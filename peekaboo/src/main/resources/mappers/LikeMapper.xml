@@ -53,6 +53,13 @@
 				content_id = #{content_id}
 			)
 	</select>
-	
+	<select id="getLikeCnt" resultType="Integer">
+		SELECT
+			COUNT(content_id)
+		FROM
+			like_content
+		WHERE
+			content_id = #{content_id}
+	</select>
 	
 </mapper>
