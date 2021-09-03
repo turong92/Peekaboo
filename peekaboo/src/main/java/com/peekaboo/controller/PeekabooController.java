@@ -173,8 +173,8 @@ public class PeekabooController {
 		String loginId = allParams.get("loginId");
 		//likeContent
 		Long contentId = Long.parseLong(allParams.get("contentId"));
-		//
-		boolean like = allParams.get("like").equals("like");
+		//isLiked
+		boolean like = allParams.get("isLiked").equals("like");
 		//if like = "like" add like table
 		if(like) {
 			likeService.insertLike(contentId, loginId);
@@ -184,6 +184,19 @@ public class PeekabooController {
 		//get likeCnt
 		int likeCnt = likeService.getLikeCnt(contentId);
 		return likeCnt;
+	}
+	@PostMapping(value = "is-liked")
+	@ResponseBody public boolean isLiked(@RequestBody Map<String,String> allParams) {
+		//loginId
+		String loginId = allParams.get("loginId");
+		//ContentId
+		Long contentId = Long.parseLong(allParams.get("contentId"));
+		//isLiked
+		if(likeService.isLike(contentId, loginId)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 //	@GetMapping(value = "write")
